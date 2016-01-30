@@ -55,7 +55,7 @@ PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
 PRODUCT_COPY_FILES += \
-	$(LOCAL_PATH)/kickstart_checker.sh:system/etc/kickstart_checker.sh
+	$(LOCAL_PATH)/kickstart_checker.sh:system/bin/kickstart_checker.sh
 
 # Prebuilt kl and kcm keymaps
 PRODUCT_COPY_FILES += \
@@ -210,6 +210,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
+
+PRODUCT_PROPERTY_OVERRIDES += \
+        dalvik.vm.dex2oat-swap=false
 
 PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/fetch-swv:system/bin/fetch-swv
