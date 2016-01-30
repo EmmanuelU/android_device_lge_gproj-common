@@ -55,6 +55,18 @@ TARGET_USES_ION := true
 TARGET_USES_OVERLAY := true
 TARGET_USES_SF_BYPASS := true
 TARGET_USES_C2D_COMPOSITION := false
+BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
+
+# Enable dex-preoptimization to speed up first boot sequence
+ifeq ($(HOST_OS),linux)
+  ifeq ($(TARGET_BUILD_VARIANT),user)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+      DONT_DEXPREOPT_PREBUILTS := true
+    endif
+  endif
+endif
+WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
 
 # Recovery
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_15x24.h\"
@@ -69,6 +81,8 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 6189744128 # 5.9G
 BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 64)
 
 BOARD_USES_SECURE_SERVICES := true
+
+USE_MINIKIN := true
 
 BOARD_USES_EXTRA_THERMAL_SENSOR := true
 BOARD_USES_CAMERA_FAST_AUTOFOCUS := true
@@ -91,10 +105,6 @@ BOARD_HARDWARE_CLASS := device/lge/gproj-common/cmhw/
 
 TARGET_USES_LOGD := false
 BOARD_USES_LEGACY_MMAP := true
-
-# SELinux policies
-# qcom sepolicy
-include device/qcom/sepolicy/sepolicy.mk
 
 # Common gproj policies
 BOARD_SEPOLICY_DIRS += \
